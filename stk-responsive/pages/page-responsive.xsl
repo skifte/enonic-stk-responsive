@@ -5,15 +5,15 @@
     xmlns:portal="http://www.enonic.com/cms/xslt/portal"
     xmlns:stk="http://www.enonic.com/cms/xslt/stk">
     
-    <xsl:import href="/modules/library-stk/stk-variables.xsl"/>
-    <xsl:import href="/modules/library-stk/region.xsl"/>
-    <xsl:import href="/modules/library-stk/head.xsl"/>
-    <xsl:import href="/modules/library-stk/accessibility.xsl"/>    
-    <xsl:import href="/modules/library-stk/menu.xsl"/>
-    <xsl:import href="/modules/library-stk/google.xsl"/>    
-    <xsl:import href="/modules/library-stk/system.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/stk-variables.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/region.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/head.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/accessibility.xsl"/>    
+    <xsl:import href="/stk-responsive/libraries/utilities/menu.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/google.xsl"/>    
+    <xsl:import href="/stk-responsive/libraries/utilities/system.xsl"/>
     
-    <xsl:import href="/modules/library-stk/menu.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/menu.xsl"/>
 
     
     <!-- HTML 5 doctype -->

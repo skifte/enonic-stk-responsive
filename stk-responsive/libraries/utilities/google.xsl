@@ -14,8 +14,8 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:stk="http://www.enonic.com/cms/xslt/stk">
     
-    <xsl:import href="/modules/library-stk/stk-variables.xsl"/>
-    <xsl:import href="/modules/library-stk/system.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/stk-variables.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/system.xsl"/>
     
     <xsl:template name="stk:google.analytics">
         <xsl:variable name="google-analytics-web-property-id" select="stk:system.get-config-param('google-analytics-web-property-id', $stk:path)" as="xs:string?"/>

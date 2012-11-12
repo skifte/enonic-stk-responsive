@@ -16,7 +16,7 @@
     xmlns:portal="http://www.enonic.com/cms/xslt/portal"
     xmlns:stk="http://www.enonic.com/cms/xslt/stk">
     
-    <xsl:import href="/modules/library-stk/stk-variables.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/stk-variables.xsl"/>
 
     <!-- Generates image element -->
     <xsl:template name="stk:image.create">

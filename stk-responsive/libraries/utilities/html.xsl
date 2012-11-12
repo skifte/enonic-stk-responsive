@@ -16,9 +16,9 @@
     xmlns:portal="http://www.enonic.com/cms/xslt/portal"
     xmlns:stk="http://www.enonic.com/cms/xslt/stk">
     
-    <xsl:import href="/modules/library-stk/stk-variables.xsl"/>
-    <xsl:import href="/modules/library-stk/image.xsl"/>
-    <xsl:import href="/modules/library-stk/video.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/stk-variables.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/image.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/video.xsl"/>
     
     <xsl:template name="stk:html.process">
         <xsl:param name="filter" as="xs:string?" select="$stk:config-filter"/>
