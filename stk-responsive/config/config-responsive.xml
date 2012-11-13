@@ -1,58 +1,31 @@
 <config>
-    <theme>theme-basic</theme>
     <parameters>
         <parameter path="/" name="meta-generator">Enonic CMS</parameter>
-        <parameter path="/" name="meta-author">Anders Skifte</parameter>
+        <parameter path="/" name="meta-author">Enonic</parameter>
+        
+        <parameter path="/" name="front-page">0</parameter>
+        <parameter path="/" name="search-result">/search-result</parameter>
+        <parameter path="/" name="sitemap">/sitemap</parameter>
+        <parameter path="/en" name="rss">/en/rss</parameter>
+        <parameter path="/no" name="front-page" key="160">/no/forsiden</parameter>
+        <parameter path="/no" name="search-result">/no/forsiden/søkeresultat</parameter>
+        <parameter path="/no" name="sitemap">/no/forsiden/nettstedskart</parameter>
+        <parameter path="/no" name="rss">/no/rss</parameter>
+        
         <parameter path="/" name="site-admin-name"></parameter>
         <parameter path="/" name="site-admin-email"></parameter>
         
-        <parameter path="/" name="front-page">354</parameter>
-        <parameter path="/en" name="search-result">/en/searchresults</parameter>
-        <parameter path="/en" name="sitemap">/en/sitemap</parameter>
-        <parameter path="/en" name="rss">/en/rss</parameter>
-        <parameter path="/en" name="archive">/en/blog/archive</parameter>
-        <parameter path="/en" name="comments">126</parameter>
-
-        <parameter path="/no" name="comments">99</parameter>
-
-        <parameter path="/no" name="search-result">/no/sokeresultat</parameter>
-        <parameter path="/no" name="sitemap">/no/nettstedskart</parameter>
-        <parameter path="/no" name="rss">/no/rss</parameter>
-        <parameter path="/no" name="archive">/no/blogg/arkiv</parameter>
-        <parameter path="/" name="google-tracker">UA-1492113-1</parameter>
-        <parameter path="/" name="google-verify">sNhaofU6MPQo21YLGCyxwgA_tERinfZYva5urvzIflg</parameter>
-        <parameter path="/" name="yahoo-verify">7d5bfa5049269d50</parameter> 
-        <parameter path="/" name="fbadmins">574605367</parameter> 
+        <parameter path="/" name="google-analytics-web-property-id"></parameter>
+        <parameter path="/" name="google-site-verification"></parameter>
     </parameters>
-    <robots>
-        <robot name="*">
-            <rule name="allow">/</rule>
-            <rule name="disallow">/sokeresultat/</rule>
-            <rule name="disallow">/Searchresults/</rule>
-            <rule name="disallow">/_services/</rule>
-            <rule name="disallow">/content/</rule>
-            <rule name="disallow">/intense-debate/</rule>
-            <rule name="disallow">/Torshovportalen/</rule>
-            <rule name="disallow">/admin/</rule>
-            <rule name="disallow">/system/</rule>
-            <rule name="disallow">/_window/</rule>
-            <rule name="disallow">/*_config$</rule>
-        </robot>
-    </robots>
-    <gfx>
-            <image name="logo">/_public/sites/skifte/images/logo.png</image>
-            <image name="apple-touch-icon">/_public/sites/skifte/favicon/apple-touch-icon.png</image>        
-    </gfx>
-        <region-prefix/>
-
         <device-classes>
             <device-class name="desktop,unknown">
                 <gridsystem width="1200">
                     <columns>12</columns>
-                    <width>70</width>
-                    <gutter>30</gutter>
+                    <columnwidth>70</columnwidth>
+                    <gutterwidth>30</gutterwidth>
                 </gridsystem>
-                <layout name="default">
+                <layout>
                     <area >
                         <region name="north"/>
                     </area>

@@ -9,7 +9,7 @@
     **************************************************
 -->
 
-<xsl:stylesheet exclude-result-prefixes="#all" version="2.0" xmlns="http://www.w3.org/1999/xhtml"
+<xsl:stylesheet exclude-result-prefixes="#all" version="2.0" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:stk="http://www.enonic.com/cms/xslt/stk">
@@ -38,11 +38,11 @@
             <xsl:if test="$stk:device-class = 'not-set'">
                 <li>Device resolver not set</li>
             </xsl:if>
-            <xsl:if test="not($stk:theme-config)">
+            <!--<xsl:if test="not($stk:config)">
                 <li>Theme config file not set / found</li>
-            </xsl:if>
-            <xsl:if test="not($stk:theme-device-class)">
-                <li>Theme device class not defined</li>
+            </xsl:if>-->
+            <xsl:if test="not($stk:config-device-class)">
+                <li>Config device class not defined</li>
             </xsl:if>
         </xsl:variable>
         
@@ -50,6 +50,7 @@
             <html>
                 <body>
                     <h1>Configuration error</h1>
+                    
                     <ul>
                         <xsl:copy-of select="$check-config-result"/>
                     </ul>
@@ -61,5 +62,5 @@
         
     </xsl:function>
     
-
+    
 </xsl:stylesheet>

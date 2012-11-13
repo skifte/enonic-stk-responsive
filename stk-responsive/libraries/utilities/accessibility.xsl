@@ -20,10 +20,10 @@
    <!-- Accessibility links -->
    <!-- Renders hotkeys to access different anchors as defined in the theme.xml -->
    <xsl:template name="stk:accessibility.create-bypass-links">
-      <xsl:if test="exists($stk:theme-config/accessibility/access-key)">
+      <xsl:if test="exists($stk:config/accessibility/access-key)">
          <nav id="accessibility-links">
             <ul>
-               <xsl:for-each select="$stk:theme-config/accessibility/access-key">
+               <xsl:for-each select="$stk:config/accessibility/access-key">
                   <li>
                      <a href="#{@anchor}" accesskey="{@key}">
                         <xsl:value-of select="portal:localize(@text)"/>

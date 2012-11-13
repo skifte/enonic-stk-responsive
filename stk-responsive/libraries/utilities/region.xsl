@@ -1,134 +1,113 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
-    **************************************************
-    
-    region.xsl
-    version: ###VERSION-NUMBER-IS-INSERTED-HERE###
-    
-    **************************************************
--->
-
-<xsl:stylesheet exclude-result-prefixes="#all" version="2.0" xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:portal="http://www.enonic.com/cms/xslt/portal"    
-    xmlns:stk="http://www.enonic.com/cms/xslt/stk">
-
+<xsl:stylesheet exclude-result-prefixes="#all" version="2.0" xmlns:stk="http://www.enonic.com/cms/xslt/stk" xmlns:portal="http://www.enonic.com/cms/xslt/portal" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xsl:import href="/stk-responsive/libraries/utilities/stk-variables.xsl"/>
-
-    <xsl:variable name="stk:region.active-regions" as="element()*">
+    
+    <!-- 
+      Major rebuild of Enonic STK region.xsl
+      Problem 1:
+      Could not wrap a group of regions in a html element for creating a row.
+      Solved by wrapping one or more <region> inside <area> nodes in the config.xml. For-each <area> - create wrapper (row).         
+      Problem 2:
+      Inline CSS and messy region width calculation.
+   -->
+    
+    <xsl:variable name="active-regions" as="element()*">
         <xsl:copy-of select="/result/context/page/regions/region[count(windows/window) gt 0]"/>
     </xsl:variable>
-
-    <!-- Regions template -->
-    <!-- Renders region(s), either specified by region-name or all available regions -->
-    <xsl:template name="stk:region.render">
-        <xsl:param name="region-name" as="xs:string?"/>
-        <xsl:param name="layout" as="xs:string" select="'default'"/>
-        <xsl:param name="content-prepend" as="document-node()*"/>
-        <xsl:param name="content-append" as="document-node()*"/>
+    
+    <xsl:variable name="gridsystem-columns" as="xs:integer" select="$stk:config-device-class/gridsystem/columns"/>
+    <xsl:variable name="gridsystem-colwidth" as="xs:integer" select="$stk:config-device-class/gridsystem/columnwidth"/>
+    <xsl:variable name="gridsystem-colgutter" as="xs:integer" select="$stk:config-device-class/gridsystem/gutterwidth"/>
+    
+    <xsl:template name="region.renderall">
+        <!-- Apply template på hver <area> som har <region> (child) hvor det er satt inn portlets -->
+        <xsl:apply-templates select="$stk:config-device-class/layout/area[region[index-of($active-regions/name, @name) castable as xs:integer]]"/>
+    </xsl:template>
+    
+    <xsl:template match="area"> 
+        <xsl:variable name="active-regions-in-current-area">
+            <xsl:copy-of select="region[index-of($active-regions/name, @name) castable as xs:integer]"/>
+        </xsl:variable>
         
-        <xsl:for-each select="$stk:theme-device-class/layout[tokenize(@name, ',') = $layout]//region[if ($region-name) then @name = $region-name else *]">
-            <!-- Creates region if it contains portlets or this is system region and error page-->
-            <xsl:if
-                test="count($stk:rendered-page/regions/region[name = concat($stk:theme-region-prefix, current()/@name)]/windows/window) gt 0 or (current()/system = 'true' and $stk:error-page/@key = portal:getPageKey())">
-                
-                <xsl:variable name="active-siblings" as="element()*" select="../region[index-of($stk:region.active-regions/name, concat($stk:theme-region-prefix, @name)) castable as xs:integer]"/>
-                
-                <xsl:variable name="width" as="xs:integer">
+        <xsl:variable name="area" select="."/>
+        <div class="row"> 
+            <xsl:for-each select="$active-regions-in-current-area/region">
+                <!-- Doc: Flexible columns. Setting column width (1-12) which is used for grid html classes and calculating image max width-->
+                <xsl:variable as="xs:integer" name="columns">
+                    
                     <xsl:choose>
-                        <xsl:when test="scalable = 'true'">
-                            
-                            <xsl:variable name="width-of-siblings" as="xs:integer">
-                                <xsl:value-of select="sum($active-siblings[not(scalable = 'true')]/width) + sum($active-siblings[not(scalable = 'true')]/margin/node()[name() = 'left' or name() = 'right']) + sum($active-siblings[not(scalable = 'true')]/padding/node()[name() = 'left' or name() = 'right'])"/>
-                           </xsl:variable>
-                            <xsl:variable name="padding-width" as="xs:integer">
-                                <xsl:value-of select="if (padding/node()) then sum(padding/node()[name() = 'left' or name() = 'right']) else 0"/>
-                            </xsl:variable>
-                            <xsl:value-of select="xs:integer(../@width) - $width-of-siblings - $padding-width"/>
+                        <xsl:when test="$area/@dynamic = 'true' and (@name = 'west' or @name = 'center' or @name = 'east')">
+                            <!-- Area region width IS dynamic-->
+                            <xsl:choose>
+                                <xsl:when test="@name = 'west'">
+                                    <xsl:choose>
+                                        <xsl:when test="../region[@name = 'east'] and not(../region[@name = 'center'])">
+                                            6
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            4
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:when>
+                                <xsl:when test="@name = 'east'">
+                                    <xsl:choose>
+                                        <xsl:when test="../region[@name = 'west'] and not(../region[@name = 'center'])">
+                                            6
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            4
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:when>
+                                <xsl:when test="@name = 'center'">
+                                    <xsl:choose>
+                                        <xsl:when test="../region[@name = 'east'] and ../region[@name = 'west']">
+                                            6
+                                        </xsl:when>
+                                        <xsl:when test="../region[@name = 'east'] or ../region[@name = 'west']">
+                                            8
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            12
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:when>
+                        <xsl:when test="count($area/region) gt 1 and $gridsystem-columns gt 1">
+                            <!-- Multiple regions in area. NOT dynamic. -->
+                            <xsl:value-of select="floor($gridsystem-columns div count(../region))"/>
+                            <!-- Nbr of total gridsystem cols divided by nbr of regions in current area-->
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of select="width"/>
+                            <!-- Area is NOT dynamic -->
+                            <xsl:value-of select="$gridsystem-columns"/>
                         </xsl:otherwise>
-                    </xsl:choose>
+                    </xsl:choose>                  
+                    <!-- Hvis desktop, 12 col gridsystem i config.xml, samt flere dynamiske regions i area: -->                  
                 </xsl:variable>
-                
-                <xsl:element name="{if (current()/@element) then current()/@element else 'div'}">
-                    <xsl:attribute name="id" select="concat($stk:theme-region-prefix, current()/@name)"/>
-                    <xsl:attribute name="class">
-                        <xsl:text>region</xsl:text>
-                        <xsl:if test="normalize-space(current()/@class)">
-                            <xsl:value-of select="concat(' ', current()/@class)"/>
-                        </xsl:if>
-                    </xsl:attribute>
-                    
-                    <xsl:if test="$content-prepend/node()">
-                        <xsl:copy-of select="$content-prepend"/>
-                    </xsl:if>
-                    
-                        
-                        <!-- Create portlet placeholder for region -->
-                        <xsl:for-each select="$stk:rendered-page/regions/region[name = concat($stk:theme-region-prefix, current()/@name)]/windows/window">
-                            <xsl:variable name="parameters" as="xs:anyAtomicType*">
-                                <xsl:sequence select="'_config-region-width', $width"/>
-                            </xsl:variable>
-                            <xsl:value-of select="portal:createWindowPlaceholder(@key, $parameters)"/>
-                        </xsl:for-each>
-                    
-                    <xsl:if test="$content-append/node()">
-                        <xsl:copy-of select="$content-append"/>
-                    </xsl:if>
-                </xsl:element>
-                
-            </xsl:if>
+                <xsl:variable as="xs:integer" name="region-width" select="($columns * $gridsystem-colwidth) + ($gridsystem-colgutter * ($columns - 1))"/>
+                <!-- $region-width: used for image max width only. Pixel value.
+                  Debug: id="pagesection-{@name}" data-region-width="{$region-width}" data-calculated-nbr-of-columns="{$columns}" data-grid-columns="{$gridsystem-columns}" data-grid-gutter="{$gridsystem-colgutter}" data-grid-colwidth="{$gridsystem-colwidth}" -->
+                <div class="span{$columns}">
+                    <xsl:call-template name="region.render">
+                        <xsl:with-param name="region" select="current()/@name"/>
+                        <xsl:with-param name="parameters" as="xs:anyAtomicType*">
+                            <xsl:sequence select="'_config-region-width', xs:integer($region-width)"/>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </div>
+            </xsl:for-each>
+        </div>
+    </xsl:template>
+    
+    <!-- Region template -->
+    <!-- Create portlet placeholder for region -->
+    <xsl:template name="region.render">
+        <xsl:param name="region"/>
+        <xsl:param name="parameters" as="xs:anyAtomicType*"/>
+        <xsl:for-each select="$stk:rendered-page/regions/region[name = $region]/windows/window">
+            <xsl:value-of select="portal:createWindowPlaceholder(@key, $parameters)"/>
         </xsl:for-each>
     </xsl:template>
-
-    <xsl:template name="stk:region.create-css">
-        <xsl:param name="layout" as="xs:string" select="'default'"/>
-        <style type="text/css">
-            <xsl:apply-templates select="$stk:theme-device-class/layout[tokenize(@name, ',') = $layout]//region[index-of($stk:region.active-regions/name, concat($stk:theme-region-prefix, @name)) castable as xs:integer]" mode="css"/>    
-        </style>
-    </xsl:template>
-
-    <!-- region size css (width, margin, padding) for active regions -->
-    <!-- insert region size css for active regions -->
-    <xsl:template match="region" mode="css">
-        <xsl:variable name="width" as="xs:integer">
-            <xsl:choose>
-                <xsl:when test="scalable = 'true'">
-                    <xsl:variable name="active-siblings" as="element()*"
-                        select="../region[not(scalable = 'true')][index-of($stk:region.active-regions/name, concat($stk:theme-region-prefix, @name)) castable as xs:integer]"/>
-                    <xsl:variable name="active-siblings-margin-width" select="sum($active-siblings[margin/left]/margin/left) + sum($active-siblings[margin/right]/margin/right)"/>
-                    <xsl:variable name="active-siblings-padding-width" select="sum($active-siblings[padding/left]/padding/left) + sum($active-siblings[padding/right]/padding/right)"/>
-                    
-                    <xsl:variable name="width-of-siblings" as="xs:integer"> 
-                        <xsl:value-of select="sum($active-siblings/width) + $active-siblings-margin-width + $active-siblings-padding-width"/>                       
-                    </xsl:variable>
-                    <xsl:variable name="padding-width" as="xs:integer">                        
-                        <xsl:value-of select="sum(padding/left) + sum(padding/right)"/>
-                    </xsl:variable>
-                    <xsl:variable name="margin-width" as="xs:integer">
-                        <xsl:value-of select="sum(margin/left) + sum(margin/right)"/>
-                    </xsl:variable>
-                    <xsl:value-of select="xs:integer(../@width) - $width-of-siblings - $padding-width - $margin-width"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="width"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:variable name="margin" as="xs:string"
-            select="if (margin/node()) then concat(if (margin/top) then margin/top else 0, 'px ', if (margin/right) then margin/right else 0, 'px ', if (margin/bottom) then margin/bottom else 0, 'px ', if (margin/left) then margin/left else 0, 'px') else '0'"/>
-        <xsl:variable name="padding" as="xs:string"
-            select="if (padding/node()) then concat(if (padding/top) then padding/top else 0, 'px ', if (padding/right) then padding/right else 0, 'px ', if (padding/bottom) then padding/bottom else 0, 'px ', if (padding/left) then padding/left else 0, 'px') else '0'"/>
-
-        <xsl:value-of select="concat('#', @name, '{')"/>
-        <xsl:value-of select="concat('width: ', $width, 'px;')"/>
-        <xsl:value-of select="concat('margin: ', $margin, ';')"/>
-        <xsl:value-of select="concat('padding: ', $padding, ';')"/>
-        <xsl:text>}</xsl:text>
-    </xsl:template>
-
+    
 </xsl:stylesheet>
