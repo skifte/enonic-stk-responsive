@@ -2,7 +2,7 @@
     <xsl:import href="/stk-responsive/libraries/utilities/stk-variables.xsl"/>
     
     <!-- 
-      Major rebuild of Enonic STK region.xsl
+      Major rebuild of Enonic stk / packages region.xsl
       Problem 1:
       Could not wrap a group of regions in a html element for creating a row.
       Solved by wrapping one or more <region> inside <area> nodes in the config.xml. For-each <area> - create wrapper (row).         
@@ -32,8 +32,7 @@
         <div class="row"> 
             <xsl:for-each select="$active-regions-in-current-area/region">
                 <!-- Doc: Flexible columns. Setting column width (1-12) which is used for grid html classes and calculating image max width-->
-                <xsl:variable as="xs:integer" name="columns">
-                    
+                <xsl:variable as="xs:integer" name="columns">                   
                     <xsl:choose>
                         <xsl:when test="$area/@dynamic = 'true' and (@name = 'west' or @name = 'center' or @name = 'east')">
                             <!-- Area region width IS dynamic-->
@@ -82,8 +81,7 @@
                             <!-- Area is NOT dynamic -->
                             <xsl:value-of select="$gridsystem-columns"/>
                         </xsl:otherwise>
-                    </xsl:choose>                  
-                    <!-- Hvis desktop, 12 col gridsystem i config.xml, samt flere dynamiske regions i area: -->                  
+                    </xsl:choose>                                
                 </xsl:variable>
                 <xsl:variable as="xs:integer" name="region-width" select="($columns * $gridsystem-colwidth) + ($gridsystem-colgutter * ($columns - 1))"/>
                 <!-- $region-width: used for image max width only. Pixel value.
@@ -108,6 +106,5 @@
         <xsl:for-each select="$stk:rendered-page/regions/region[name = $region]/windows/window">
             <xsl:value-of select="portal:createWindowPlaceholder(@key, $parameters)"/>
         </xsl:for-each>
-    </xsl:template>
-    
+    </xsl:template>  
 </xsl:stylesheet>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="#all" version="2.0" xmlns="http://www.w3.org/1999/xhtml"
+<xsl:stylesheet exclude-result-prefixes="#all" version="2.0"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"    
     xmlns:portal="http://www.enonic.com/cms/xslt/portal"
@@ -47,8 +47,8 @@
                         <xsl:value-of select="concat(' - ', $stk:site-name)"/>
                     </title>
                     <xsl:call-template name="stk:head.create-metadata"/>
-                    <link rel="stylesheet" href="{portal:createResourceUrl('/_public/skifte/styles/css/_skifte.css')}" type="text/css"/>
-                    <link rel="stylesheet" href="{portal:createResourceUrl('/_public/skifte/styles/css/bootstrap-responsive.css')}" type="text/css"/>
+                    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
                 </head>
                 <!-- Run config check to make sure everything is OK -->
                 <xsl:variable name="config-status" select="stk:system.check-config()"/>
