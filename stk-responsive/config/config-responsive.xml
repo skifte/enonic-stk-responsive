@@ -26,12 +26,12 @@
                     <gutterwidth>30</gutterwidth>
                 </gridsystem>
                 <layout>
-                    <area >
+                    <area>
                         <region name="north"/>
                     </area>
-                    <area>
+                    <area dynamic="true">
                         <region name="west"/>
-                        <region name="center" role="main"/>
+                        <region name="center"/>
                         <region name="east"/>
                     </area>
                     <area>
@@ -75,8 +75,23 @@
              
             </device-class>
             <device-class name="mobile">
-                <layout name="default">
-                                        
+                <gridsystem width="320">
+                    <columns>1</columns>
+                    <columnwidth>320</columnwidth>
+                    <gutterwidth>0</gutterwidth>
+                </gridsystem>
+                <layout>
+                    <area>
+                        <region name="north"/>
+                    </area>
+                    <area>
+                        <region name="west"/>
+                        <region name="center"/>
+                        <region name="east"/>
+                    </area>
+                    <area>
+                        <region name="south"/>
+                    </area>
                 </layout>
                 <image>
                     <format>jpeg</format>

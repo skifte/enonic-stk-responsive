@@ -29,7 +29,7 @@
         </xsl:variable>
         
         <xsl:variable name="area" select="."/>
-        <div class="row"> 
+        <div class="row-fluid"> 
             <xsl:for-each select="$active-regions-in-current-area/region">
                 <!-- Doc: Flexible columns. Setting column width (1-12) which is used for grid html classes and calculating image max width-->
                 <xsl:variable as="xs:integer" name="columns">                   
@@ -43,7 +43,7 @@
                                             6
                                         </xsl:when>
                                         <xsl:otherwise>
-                                            4
+                                            3
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:when>
@@ -53,7 +53,7 @@
                                             6
                                         </xsl:when>
                                         <xsl:otherwise>
-                                            4
+                                            3
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:when>
@@ -63,7 +63,7 @@
                                             6
                                         </xsl:when>
                                         <xsl:when test="../region[@name = 'east'] or ../region[@name = 'west']">
-                                            8
+                                            9
                                         </xsl:when>
                                         <xsl:otherwise>
                                             12
@@ -87,6 +87,10 @@
                 <!-- $region-width: used for image max width only. Pixel value.
                   Debug: id="pagesection-{@name}" data-region-width="{$region-width}" data-calculated-nbr-of-columns="{$columns}" data-grid-columns="{$gridsystem-columns}" data-grid-gutter="{$gridsystem-colgutter}" data-grid-colwidth="{$gridsystem-colwidth}" -->
                 <div class="span{$columns}">
+                    <xsl:if test="$gridsystem-columns = 1">
+                        <xsl:attribute name="class" select="'12'"/>
+                        <!-- 1 from config is used for image width -->
+                    </xsl:if>
                     <xsl:call-template name="region.render">
                         <xsl:with-param name="region" select="current()/@name"/>
                         <xsl:with-param name="parameters" as="xs:anyAtomicType*">

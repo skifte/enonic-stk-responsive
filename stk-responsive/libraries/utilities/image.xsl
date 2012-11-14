@@ -48,11 +48,11 @@
                     <xsl:with-param name="imagesize" select="$imagesize"/>
                 </xsl:call-template>
             </xsl:attribute>
-            <xsl:if test="$title">
+            <!--<xsl:if test="$title">
                 <xsl:attribute name="title">
                     <xsl:value-of select="$title"/>
                 </xsl:attribute>
-            </xsl:if>
+            </xsl:if>-->
             <xsl:if test="$width">
                 <xsl:attribute name="width">
                     <xsl:value-of select="$width"/>

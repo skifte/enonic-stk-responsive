@@ -70,16 +70,23 @@
     <xsl:template name="body">
        
             <body>
-                <div class="container">
-                    <header>
                     <xsl:call-template name="stk:menu.render">
                         <xsl:with-param name="menuitems" select="/result/menus/menu/menuitems"/>
                         <xsl:with-param name="levels" select="1"/>
                         <xsl:with-param name="list-class" select="'menu horizontal main level1'" />
                     </xsl:call-template>
-                    </header>
+               
+               <header class="hero-unit">
+                   <div class="container">
+                       <h1>Resolved device class is <xsl:value-of select="$stk:device-class"/></h1>
+                   </div>
+               </header>
+               
+               
+                <div class="container">
+                 
 
-                    <h1>Resolved device class is <xsl:value-of select="$stk:device-class"/></h1>
+                    
                     
                     <!-- Renders all regions defined in config -->
                     <xsl:call-template name="region.renderall"/>
