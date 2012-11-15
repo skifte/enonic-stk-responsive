@@ -48,7 +48,7 @@
                     </title>
                     <xsl:call-template name="stk:head.create-metadata"/>
                     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
-
+                    <xsl:call-template name="stk:google.analytics"/>
                 </head>
                 <!-- Run config check to make sure everything is OK -->
                 <xsl:variable name="config-status" select="stk:system.check-config()"/>
@@ -70,31 +70,48 @@
     <xsl:template name="body">
        
             <body>
-                    <xsl:call-template name="stk:menu.render">
+                    <!--<xsl:call-template name="stk:menu.render">
                         <xsl:with-param name="menuitems" select="/result/menus/menu/menuitems"/>
                         <xsl:with-param name="levels" select="1"/>
                         <xsl:with-param name="list-class" select="'menu horizontal main level1'" />
-                    </xsl:call-template>
-               
-               <header class="hero-unit">
-                   <div class="container">
-                       <h1>Responsive and simplified</h1>
-                       <p>A responsive and simplified version of <a href="http://www.enonic.com/en/docs/stk">Enonic STK</a> (Standard Templating Kit) using Bootstrap CSS and following the principles of <a href="http://www.lukew.com/ff/entry.asp?1392" rel="external" title="Responsive design + server components">RESS</a>.</p>
-                       <p><a href="https://github.com/skifte/enonic-stk-responsive" class="btn btn-primary btn-large" rel="external">View on Github</a></p>
-                   </div>
-                  
-               </header>
-               
+                    </xsl:call-template>-->
+                <div class="container">
+                <div class="masthead">
+                    <ul class="nav nav-pills pull-right">
+                        <li>
+                            <xsl:if test="$stk:device-class = 'mobile'">
+                                <xsl:attribute name="class" select="'active'"/>
+                            </xsl:if>
+                            <a href="{portal:createServicesUrl('portal','forceDeviceClass', ('deviceclass', 'mobile', 'lifetime', 'session'))}" rel="nofollow">
+                                <xsl:text>Mobile</xsl:text>
+                            </a>
+                        </li>
+                        <li>
+                            <xsl:if test="$stk:device-class = 'tablet'">
+                                <xsl:attribute name="class" select="'active'"/>
+                            </xsl:if>
+                            <a href="{portal:createServicesUrl('portal','forceDeviceClass', ('deviceclass', 'tablet', 'lifetime', 'session'))}" rel="nofollow">
+                                <xsl:text>Tablet</xsl:text>
+                            </a>
+                        </li>
+                        <li>
+                            <xsl:if test="$stk:device-class = 'desktop'">
+                                <xsl:attribute name="class" select="'active'"/>
+                            </xsl:if>
+                            <a href="{portal:createServicesUrl('portal','forceDeviceClass', ('deviceclass', 'desktop', 'lifetime', 'session'))}" rel="nofollow">
+                                <xsl:text>Desktop</xsl:text>
+                            </a>
+                        </li>
+                    </ul>
+                    <h3 class="muted">Responsive Templating Kit</h3>
+                </div>
+                </div>
+                
+             
                
                 <div class="container">
-                 
-                    
-                    
                     <!-- Renders all regions defined in config -->
                     <xsl:call-template name="region.renderall"/>
-                    
-                    
-                    
                 </div>
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
                 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>

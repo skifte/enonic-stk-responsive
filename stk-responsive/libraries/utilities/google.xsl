@@ -24,9 +24,7 @@
             <script type="text/javascript">
                 var _gaq = _gaq || [];
                 _gaq.push(['_setAccount', '<xsl:value-of select="$google-analytics-web-property-id"/>']);
-                <xsl:if test="normalize-space($google-analytics-domain-name)">
-                    _gaq.push(['_setDomainName', '<xsl:value-of select="$google-analytics-domain-name"/>']);   
-                </xsl:if>
+                <xsl:if test="normalize-space($google-analytics-domain-name)">_gaq.push(['_setDomainName', '<xsl:value-of select="$google-analytics-domain-name"/>']);</xsl:if>
                 _gaq.push(['_trackPageview']);
                 _gaq.push(['_trackPageLoadTime']);
 

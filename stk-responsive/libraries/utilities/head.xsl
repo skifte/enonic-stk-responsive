@@ -16,6 +16,7 @@
       <xsl:variable name="stk:head.meta-generator" select="stk:system.get-config-param('meta-generator', $stk:path)" as="element()?"/>
       <xsl:variable name="stk:head.meta-author" select="stk:system.get-config-param('meta-author', $stk:path)" as="element()?"/>      
       <xsl:variable name="stk:head.meta-google-site-verification" select="stk:system.get-config-param('google-site-verification', $stk:path)" as="element()?"/>
+      <xsl:variable name="stk:head.meta-favicon" select="stk:system.get-config-param('meta-favicon', $stk:path)" as="element()?"/>
       
       <xsl:variable name="stk:head.meta-description">
          <xsl:choose>
@@ -68,7 +69,11 @@
       
      
       <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-         <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      
+      <xsl:if test="$stk:head.meta-favicon">
+         <link rel="shortcut icon" type="image/x-icon" href="{portal:createResourceUrl($stk:head.meta-favicon)}"/>
+      </xsl:if>
    
       
       <!-- for Google Search Appliance -->
