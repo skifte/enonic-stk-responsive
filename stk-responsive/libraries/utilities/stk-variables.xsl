@@ -33,16 +33,23 @@
     <xsl:variable name="stk:login-page" as="xs:integer?" select="/result/context/site/login-page/resource/@key"/>
     <xsl:variable name="stk:search-result-page" select="stk:system.get-config-param('search-result', $stk:path)"/>
     
+    <!-- Image settings --> 
     <xsl:variable name="stk:config-filter">
-        <xsl:value-of select="string-join($stk:config-device-class/image/filters/filter, ';')"/>
-        <xsl:if test="normalize-space($stk:config-device-class/image/filters/filter)">;</xsl:if>
-    </xsl:variable>
-    
-    <xsl:variable name="stk:config-imagesize" select="$stk:config-device-class/image/sizes/size"/>
-    
-    <xsl:variable name="stk:default-image-format" as="xs:string" select="if ($stk:config-device-class/image/format/text()) then $stk:config-device-class/image/format else 'jpeg'"/>
-    <xsl:variable name="stk:default-image-quality" as="xs:integer" select="if ($stk:config-device-class/image/quality castable as xs:integer) then $stk:config-device-class/image/quality else 75"/>
-    
+        <xsl:choose>
+            <xsl:when test="$stk:config-device-class/image/filters/filter">
+                <xsl:value-of select="string-join($stk:config-device-class/image/filters/filter, ';')"/>
+                <xsl:if test="normalize-space($stk:config-device-class/image/filters/filter)">;</xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="string-join($stk:config/image/filters/filter, ';')"/>
+                <xsl:if test="normalize-space($stk:config/image/filters/filter)">;</xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>   
+    <xsl:variable name="stk:config-imagesize" select="if ($stk:config-device-class/image/sizes/size) then $stk:config-device-class/image/sizes/size else $stk:config/image/sizes/size"/>   
+    <xsl:variable name="stk:default-image-format" as="xs:string" select="if ($stk:config-device-class/image/format/text()) then $stk:config-device-class/image/format else if ($stk:config/image/format/text()) then $stk:config/image/format else 'jpeg'"/>
+    <xsl:variable name="stk:default-image-quality" as="xs:integer" select="if ($stk:config-device-class/image/quality castable as xs:integer) then $stk:config-device-class/image/quality else if ($stk:config/image/quality castable as xs:integer) then $stk:config/image/quality else 75"/>
+       
     <xsl:variable name="stk:site-admin-name" as="xs:string?" select="stk:system.get-config-param('site-admin-name', $stk:path)"/>
     <xsl:variable name="stk:site-admin-email" as="xs:string?" select="stk:system.get-config-param('site-admin-email', $stk:path)"/>
 </xsl:stylesheet>

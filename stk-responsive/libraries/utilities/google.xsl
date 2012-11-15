@@ -19,11 +19,16 @@
     
     <xsl:template name="stk:google.analytics">
         <xsl:variable name="google-analytics-web-property-id" select="stk:system.get-config-param('google-analytics-web-property-id', $stk:path)" as="xs:string?"/>
+        <xsl:variable name="google-analytics-domain-name" select="stk:system.get-config-param('google-analytics-domain-name', $stk:path)" as="xs:string?"/>
         <xsl:if test="normalize-space($google-analytics-web-property-id)">
             <script type="text/javascript">
                 var _gaq = _gaq || [];
                 _gaq.push(['_setAccount', '<xsl:value-of select="$google-analytics-web-property-id"/>']);
+                <xsl:if test="normalize-space($google-analytics-domain-name)">
+                    _gaq.push(['_setDomainName', '<xsl:value-of select="$google-analytics-domain-name"/>']);   
+                </xsl:if>
                 _gaq.push(['_trackPageview']);
+                _gaq.push(['_trackPageLoadTime']);
 
                 (function() {
                   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

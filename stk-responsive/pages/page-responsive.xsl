@@ -78,40 +78,26 @@
                
                <header class="hero-unit">
                    <div class="container">
-                       <h1>Resolved device class is <xsl:value-of select="$stk:device-class"/></h1>
+                       <h1>Responsive and simplified</h1>
+                       <p>A responsive and simplified version of <a href="http://www.enonic.com/en/docs/stk">Enonic STK</a> (Standard Templating Kit) using Bootstrap CSS and following the principles of <a href="http://www.lukew.com/ff/entry.asp?1392" rel="external" title="Responsive design + server components">RESS</a>.</p>
+                       <p><a href="https://github.com/skifte/enonic-stk-responsive" class="btn btn-primary btn-large" rel="external">View on Github</a></p>
                    </div>
+                  
                </header>
                
                
                 <div class="container">
                  
-
                     
                     
                     <!-- Renders all regions defined in config -->
                     <xsl:call-template name="region.renderall"/>
                     
                     
-                    <ul class="change-device">
-                        <li>
-                            <a href="{portal:createServicesUrl('portal','forceDeviceClass', ('deviceclass', 'mobile', 'lifetime', 'session'))}" class="change-device-class" rel="nofollow">
-                                <xsl:text>Switch to mobile</xsl:text>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{portal:createServicesUrl('portal','forceDeviceClass', ('deviceclass', 'tablet', 'lifetime', 'session'))}" class="change-device-class" rel="nofollow">
-                                <xsl:text>Switch to tablet</xsl:text>
-                            </a>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="{portal:createServicesUrl('portal','forceDeviceClass', ('deviceclass', 'desktop', 'lifetime', 'session'))}" class="change-device-class" rel="nofollow">
-                                <xsl:text>Switch to desktop</xsl:text>
-                            </a>
-                        </li>
-                    </ul>
+                    
                 </div>
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
             </body>
       
     </xsl:template>
