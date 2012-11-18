@@ -104,7 +104,7 @@
                 </div>
                 <footer class="footer">
                     <div class="container">
-                        <p>My awesome footer.</p>
+                        <p>Responsive demo created by <a href="https://github.com/skifte" rel="external">Anders Skifte</a>. Based on the <a href="http://www.enonic.com/en/docs/stk" rel="external">Enonic STK</a>.</p>
                     </div>
                 </footer>
                 <xsl:if test="$scripts-region != ''">
