@@ -1,20 +1,20 @@
-# A responsive and simplified version of [The Enonic STK - Standard Templating Kit](http://www.enonic.com/en/docs/stk)
+# A responsive and simplified version of The Enonic STK - Standard Templating Kit (http://www.enonic.com/en/docs/stk)
 
 Demo available at http://responsive.skifte.com
 
-## Config.xml
+Config.xml
 - Grid system based on Bootstrap
 - Global image settings moved to the "device agnostic" part of the config.xml so that it doesn't have to be repeated. May be overridden. These settings can be overriden per device class.
 - No theme
 
-## Region.xsl
+Region.xsl
 - Removed CSS templates
 - Calculates column and image width based on the grid system defined in config.xml
 
-## Page.xsl
+Page.xsl
 - Removed mobile and desktop templates
 - Same markup (including the head section) regardless of device class
 
-## Other
+Other
 - Reorganzed folders
 - Removed scripts and styling. Included Bootstrap CSS via CDN.
