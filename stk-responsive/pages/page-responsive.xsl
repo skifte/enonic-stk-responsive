@@ -48,6 +48,7 @@
                     </title>
                     <xsl:call-template name="stk:head.create-metadata"/>
                     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+                    <link href="{portal:createResourceUrl('/_public/stk-responsive/styles/css/stk-styles.css')}" rel="stylesheet"/>
                     <xsl:call-template name="stk:google.analytics"/>
                 </head>
                 <!-- Run config check to make sure everything is OK -->
@@ -113,6 +114,11 @@
                     <!-- Renders all regions defined in config -->
                     <xsl:call-template name="region.renderall"/>
                 </div>
+                <footer class="sitefooter well">
+                    <div class="container">
+                    My awesome footer.
+                    </div>
+                </footer>
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
                 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
             </body>
