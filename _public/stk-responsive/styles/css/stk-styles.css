@@ -3,6 +3,7 @@
 
 @media (max-width: 767px) {
   body {padding-top: 0;}
+  .footer {margin:20px -20px 0 -20px;padding-left:20px;padding-right:20px}  
   .hero-unit {margin: 0 -20px 30px -20px;padding:30px 20px;border-radius:0;} 
   .hero-unit h1 {font-size:45px;}
    nav a.btn {display: block;width: 100%;padding-right: 0;padding-left: 0;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
