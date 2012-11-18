@@ -51,42 +51,62 @@
         </image>
         <device-classes>
             <device-class name="desktop,unknown">
-                <gridsystem width="1200">
+                <gridsystem width="1170">
                     <columns>12</columns>
                     <columnwidth>70</columnwidth>
                     <gutterwidth>30</gutterwidth>
                 </gridsystem>
                 <layout>
                     <area>
-                        <region name="north"/>
+                        <region name="region-north"/>
                     </area>
                     <area dynamic="true">
-                        <region name="west"/>
-                        <region name="center"/>
-                        <region name="east"/>
+                        <region name="region-west"/>
+                        <region name="region-center"/>
+                        <region name="region-east"/>
                     </area>
                     <area>
-                        <region name="south"/>
+                        <region name="region-south"/>
+                    </area>
+                </layout>
+            </device-class>
+            <device-class name="tablet">
+                <gridsystem width="1024">
+                    <columns>12</columns>
+                    <columnwidth>67</columnwidth>
+                    <gutterwidth>20</gutterwidth>
+                </gridsystem>
+                <layout>
+                    <area>
+                        <region name="region-north"/>
+                    </area>
+                    <area dynamic="true">
+                        <region name="region-west"/>
+                        <region name="region-center"/>
+                        <region name="region-east"/>
+                    </area>
+                    <area>
+                        <region name="region-south"/>
                     </area>
                 </layout>
             </device-class>
             <device-class name="mobile">
-                <gridsystem width="320">
+                <gridsystem width="480">
                     <columns>1</columns>
-                    <columnwidth>320</columnwidth>
+                    <columnwidth>480</columnwidth>
                     <gutterwidth>0</gutterwidth>
                 </gridsystem>
                 <layout>
                     <area>
-                        <region name="north"/>
+                        <region name="region-north"/>
                     </area>
                     <area>
-                        <region name="west"/>
-                        <region name="center"/>
-                        <region name="east"/>
+                        <region name="region-west"/>
+                        <region name="region-center"/>
+                        <region name="region-east"/>
                     </area>
                     <area>
-                        <region name="south"/>
+                        <region name="region-south"/>
                     </area>
                 </layout>
                 <image>

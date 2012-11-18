@@ -18,6 +18,17 @@
       <xsl:variable name="stk:head.meta-google-site-verification" select="stk:system.get-config-param('google-site-verification', $stk:path)" as="element()?"/>
       <xsl:variable name="stk:head.meta-favicon" select="stk:system.get-config-param('meta-favicon', $stk:path)" as="element()?"/>
       
+      <xsl:variable name="stk:canonical-url">
+         <xsl:choose>
+            <xsl:when test="/result/context/querystring/parameter[@name = 'key']">
+               <xsl:value-of select="portal:createContentUrl(/result/context/querystring/parameter[@name = 'key'],())"/>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:value-of select="portal:createPageUrl(portal:getPageKey(),())"/>
+            </xsl:otherwise>
+         </xsl:choose>
+      </xsl:variable>
+            
       <xsl:variable name="stk:head.meta-description">
          <xsl:choose>
             <xsl:when test="/result/contents/content/contentdata/meta-description != ''">
@@ -82,6 +93,10 @@
       </xsl:if>
       <xsl:if test="normalize-space($stk:head.meta-content-type)">
          <meta name="_cty" content="{$stk:head.meta-content-type}"/>
+      </xsl:if>
+      
+      <xsl:if test="$stk:canonical-url">
+         <link rel="canonical" href="{$stk:canonical-url}"/>
       </xsl:if>
    </xsl:template>
 </xsl:stylesheet>

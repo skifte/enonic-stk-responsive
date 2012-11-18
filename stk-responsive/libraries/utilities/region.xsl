@@ -14,9 +14,7 @@
         <xsl:copy-of select="/result/context/page/regions/region[count(windows/window) gt 0]"/>
     </xsl:variable>
     
-    <xsl:variable name="gridsystem-columns" as="xs:integer" select="$stk:config-device-class/gridsystem/columns"/>
-    <xsl:variable name="gridsystem-colwidth" as="xs:integer" select="$stk:config-device-class/gridsystem/columnwidth"/>
-    <xsl:variable name="gridsystem-colgutter" as="xs:integer" select="$stk:config-device-class/gridsystem/gutterwidth"/>
+   
     
     <xsl:template name="region.renderall">
         <!-- Apply template på hver <area> som har <region> (child) hvor det er satt inn portlets -->
@@ -34,12 +32,12 @@
                 <!-- Doc: Flexible columns. Setting column width (1-12) which is used for grid html classes and calculating image max width-->
                 <xsl:variable as="xs:integer" name="columns">                   
                     <xsl:choose>
-                        <xsl:when test="$area/@dynamic = 'true' and (@name = 'west' or @name = 'center' or @name = 'east')">
+                        <xsl:when test="$area/@dynamic = 'true' and (@name = 'region-west' or @name = 'region-center' or @name = 'region-east')">
                             <!-- Area region width IS dynamic-->
                             <xsl:choose>
-                                <xsl:when test="@name = 'west'">
+                                <xsl:when test="@name = 'region-west'">
                                     <xsl:choose>
-                                        <xsl:when test="../region[@name = 'east'] and not(../region[@name = 'center'])">
+                                        <xsl:when test="../region[@name = 'region-east'] and not(../region[@name = 'region-center'])">
                                             6
                                         </xsl:when>
                                         <xsl:otherwise>
@@ -47,9 +45,9 @@
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:when>
-                                <xsl:when test="@name = 'east'">
+                                <xsl:when test="@name = 'region-east'">
                                     <xsl:choose>
-                                        <xsl:when test="../region[@name = 'west'] and not(../region[@name = 'center'])">
+                                        <xsl:when test="../region[@name = 'region-west'] and not(../region[@name = 'region-center'])">
                                             6
                                         </xsl:when>
                                         <xsl:otherwise>
@@ -57,12 +55,12 @@
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:when>
-                                <xsl:when test="@name = 'center'">
+                                <xsl:when test="@name = 'region-center'">
                                     <xsl:choose>
-                                        <xsl:when test="../region[@name = 'east'] and ../region[@name = 'west']">
+                                        <xsl:when test="../region[@name = 'region-east'] and ../region[@name = 'region-west']">
                                             6
                                         </xsl:when>
-                                        <xsl:when test="../region[@name = 'east'] or ../region[@name = 'west']">
+                                        <xsl:when test="../region[@name = 'region-east'] or ../region[@name = 'region-west']">
                                             9
                                         </xsl:when>
                                         <xsl:otherwise>
@@ -72,24 +70,24 @@
                                 </xsl:when>
                             </xsl:choose>
                         </xsl:when>
-                        <xsl:when test="count($area/region) gt 1 and $gridsystem-columns gt 1">
+                        <xsl:when test="count($area/region) gt 1 and $stk:gridsystem-columns gt 1">
                             <!-- Multiple regions in area. NOT dynamic. -->
-                            <xsl:value-of select="floor($gridsystem-columns div count(../region))"/>
+                            <xsl:value-of select="floor($stk:gridsystem-columns div count(../region))"/>
                             <!-- Nbr of total gridsystem cols divided by nbr of regions in current area-->
                         </xsl:when>
                         <xsl:otherwise>
                             <!-- Area is NOT dynamic -->
-                            <xsl:value-of select="$gridsystem-columns"/>
+                            <xsl:value-of select="$stk:gridsystem-columns"/>
                         </xsl:otherwise>
                     </xsl:choose>                                
                 </xsl:variable>
-                <xsl:variable as="xs:integer" name="region-width" select="($columns * $gridsystem-colwidth) + ($gridsystem-colgutter * ($columns - 1))"/>
+                <xsl:variable as="xs:integer" name="region-width" select="($columns * $stk:gridsystem-colwidth) + ($stk:gridsystem-colgutter * ($columns - 1))"/>
                 <!-- $region-width: used for image max width only. Pixel value.
-                  Debug: id="pagesection-{@name}" data-region-width="{$region-width}" data-calculated-nbr-of-columns="{$columns}" data-grid-columns="{$gridsystem-columns}" data-grid-gutter="{$gridsystem-colgutter}" data-grid-colwidth="{$gridsystem-colwidth}" -->
+                  Debug: id="pagesection-{@name}" data-region-width="{$region-width}" data-calculated-nbr-of-columns="{$columns}" data-grid-columns="{$stk:gridsystem-columns}" data-grid-gutter="{$stk:gridsystem-colgutter}" data-grid-colwidth="{$stk:gridsystem-colwidth}" -->
                 <div class="span{$columns}">
-                    <xsl:if test="$gridsystem-columns = 1">
+                    <xsl:if test="$stk:gridsystem-columns = 1">
                         <xsl:attribute name="class" select="'12'"/>
-                        <!-- 1 from config is used for image width -->
+                        
                     </xsl:if>
                     <xsl:call-template name="region.render">
                         <xsl:with-param name="region" select="current()/@name"/>

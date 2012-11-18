@@ -19,19 +19,21 @@
     
     <xsl:variable name="stk:querystring-parameter" as="element()*" select="/result/context/querystring/parameter"/>  
     <xsl:variable name="stk:region-width" as="xs:integer" select="if (/result/context/querystring/parameter[@name = '_config-region-width']) then /result/context/querystring/parameter[@name = '_config-region-width'] else 300"/>
-    
-    
+       
     <!-- ########## Configuration variables ########## -->  
     <xsl:variable name="stk:config" as="element()?" select="if (doc-available(concat(/result/context/site/path-to-home-resources, 'config-responsive.xml'))) then document(concat(/result/context/site/path-to-home-resources, 'config-responsive.xml'))/config else null"/>
-    <xsl:variable name="stk:config-parameter" as="element()*" select="$stk:config/parameters/parameter"/>
-    
+    <xsl:variable name="stk:config-parameter" as="element()*" select="$stk:config/parameters/parameter"/>    
     <xsl:variable name="stk:config-device-class" as="element()?" select="if ($stk:config/device-classes/device-class[tokenize(@name, ',')[. = $stk:device-class]]) then $stk:config/device-classes/device-class[tokenize(@name, ',')[. = $stk:device-class]] else $stk:config/device-classes/device-class[1]"/>
-       
     
     <xsl:variable name="stk:front-page" as="xs:integer?" select="if (stk:system.get-config-param('front-page', $stk:path) castable as xs:integer) then stk:system.get-config-param('front-page', $stk:path) else /result/context/site/front-page/resource/@key"/>
     <xsl:variable name="stk:error-page" as="xs:integer?" select="/result/context/site/error-page/resource/@key"/>
     <xsl:variable name="stk:login-page" as="xs:integer?" select="/result/context/site/login-page/resource/@key"/>
     <xsl:variable name="stk:search-result-page" select="stk:system.get-config-param('search-result', $stk:path)"/>
+    
+    <!-- Gridsystem -->
+    <xsl:variable name="stk:gridsystem-columns" as="xs:integer" select="$stk:config-device-class/gridsystem/columns"/>
+    <xsl:variable name="stk:gridsystem-colwidth" as="xs:integer" select="$stk:config-device-class/gridsystem/columnwidth"/>
+    <xsl:variable name="stk:gridsystem-colgutter" as="xs:integer" select="$stk:config-device-class/gridsystem/gutterwidth"/>
     
     <!-- Image settings --> 
     <xsl:variable name="stk:config-filter">

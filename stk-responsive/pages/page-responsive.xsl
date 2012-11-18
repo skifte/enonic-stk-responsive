@@ -12,35 +12,33 @@
     <xsl:import href="/stk-responsive/libraries/utilities/menu.xsl"/>
     <xsl:import href="/stk-responsive/libraries/utilities/google.xsl"/>    
     <xsl:import href="/stk-responsive/libraries/utilities/system.xsl"/>
-    
     <xsl:import href="/stk-responsive/libraries/utilities/menu.xsl"/>
-
     
-    <!-- HTML 5 doctype -->
     <xsl:output method="html" encoding="utf-8" indent="yes" omit-xml-declaration="yes" include-content-type="no"/>
-    <xsl:param name="north">
+    <xsl:param name="region-north">
         <type>region</type>
     </xsl:param>
-    <xsl:param name="west">
+    <xsl:param name="region-west">
         <type>region</type>
     </xsl:param>
-    <xsl:param name="center">
+    <xsl:param name="region-center">
         <type>region</type>
     </xsl:param>
-    <xsl:param name="east">
+    <xsl:param name="region-east">
         <type>region</type>
     </xsl:param>
-    <xsl:param name="south">
+    <xsl:param name="region-south">
+        <type>region</type>
+    </xsl:param>
+    <xsl:param name="scripts-region">
         <type>region</type>
     </xsl:param>
     
-    <!-- Select template based on current device -->
     <xsl:template match="/">
             <xsl:text disable-output-escaping="yes">
       &lt;!DOCTYPE html&gt;
     </xsl:text>
             <html lang="{$stk:language}">
-                <!-- version="HTML+RDFa 1.1" -->
                 <head>
                     <title>
                         <xsl:value-of select="stk:menu.menuitem-name($stk:current-resource)"/>
@@ -67,15 +65,8 @@
    
     </xsl:template>
     
-    <!-- Desktop template -->
     <xsl:template name="body">
-       
-            <body>
-                    <!--<xsl:call-template name="stk:menu.render">
-                        <xsl:with-param name="menuitems" select="/result/menus/menu/menuitems"/>
-                        <xsl:with-param name="levels" select="1"/>
-                        <xsl:with-param name="list-class" select="'menu horizontal main level1'" />
-                    </xsl:call-template>-->
+            <body>             
                 <div class="container">
                 <div class="masthead">
                     <ul class="nav nav-pills pull-right">
@@ -104,24 +95,24 @@
                             </a>
                         </li>
                     </ul>
-                    <h3 class="muted">Responsive Templating Kit</h3>
                 </div>
                 </div>
                 
-             
-               
                 <div class="container">
                     <!-- Renders all regions defined in config -->
                     <xsl:call-template name="region.renderall"/>
                 </div>
-                <footer class="sitefooter well">
+                <footer class="footer">
                     <div class="container">
-                    My awesome footer.
+                        <p>My awesome footer.</p>
                     </div>
                 </footer>
-                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-                <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+                <xsl:if test="$scripts-region != ''">
+                    <!-- A region for page specific scripts. Recomended addon / plugin for compressing: https://github.com/getas/enonic-resourcepacker-plugin -->
+                    <xsl:call-template name="region.render">
+                        <xsl:with-param name="region" select="'scripts-region'"/>
+                    </xsl:call-template>
+                </xsl:if>
             </body>
-      
     </xsl:template>
 </xsl:stylesheet>

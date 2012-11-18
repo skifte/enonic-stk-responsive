@@ -14,9 +14,6 @@
     
     <xsl:template match="content">
         <article>
-            <h1>
-                <xsl:value-of select="title"/>
-            </h1>
             <xsl:call-template name="stk:html.process">
                 <xsl:with-param name="document" select="contentdata/text"/>
             </xsl:call-template>

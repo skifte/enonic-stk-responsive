@@ -1,35 +1,14 @@
-.footer {padding: 70px 0;
-margin-top: 70px;
-border-top: 1px solid #E5E5E5;
-background-color: whiteSmoke;}
+.footer {padding: 70px 0;margin-top: 70px;border-top: 1px solid #E5E5E5;background-color: whiteSmoke;}
 
 
 @media (max-width: 767px) {
-  /* Remove any padding from the body */
-  body {
-    padding-top: 0;
+  body {padding-top: 0;}
+  .hero-unit {margin: 0 -20px 30px -20px;padding:30px 20px;border-radius:0;} 
+  .hero-unit h1 {font-size:45px;}
+   nav a.btn {display: block;width: 100%;padding-right: 0;padding-left: 0;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+  nav .btn + .btn {margin-top:5px;}
   }
   
-  .hero-unit {
-      margin: 0 -20px 0 -20px;
-      padding-left:20px;padding-right:20px;
-      border-radius:0;
-  }
-  .hero-unit h1 {
-      font-size:45px;
-  }
-  
-  }
-  
-  @media (max-width: 480px) {
-  /* Remove padding above jumbotron */
-  body {
-    padding-top: 0;
-  }
-    .hero-unit {
-      margin: 0 -20px 0 -20px;
-      padding-left:20px;padding-right:20px;
-      border-radius:0;
-  }
-
-  }
+@media (max-width: 480px) {
+  h3 {font-size:18px;}
+ }
