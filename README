@@ -1,10 +1,12 @@
 A responsive and simplified version of The Enonic STK - Standard Templating Kit (http://www.enonic.com/en/docs/stk)
 
-Demo available at http://responsive.skifte.com
+Responsive Templating Kit Demo available at http://responsive.skifte.com
 
-Config.xml
+Main differences
+
+Config-responsive.xml
 - Grid system based on Bootstrap
-- Wrapping <region> (column) in <area> (row) for setting up the grid system
+- <region> aka columns are wrapped in <area> aka rows for setting up the grid system
 - Default image settings moved to the "device agnostic" part of the config.xml so that it doesn't have to be repeated. Settings may be overriden per device class.
 - No theme
 
@@ -21,3 +23,10 @@ Other
 - Reorganzed folders
 - Removed scripts and styling. Included Bootstrap CSS via CDN.
 - Added the tablet device class (to libraries/resolvers/device-classification.xsl)
+
+For any new site you'd typically want to create local ("private") copies of the config.xml, the region.xsl and the page.xsl. The rest can easily be shared between multiple sites whitout (very much) hassle.
+
+Contact:
+https://twitter.com/skifte
+https://github.com/skifte
+http://www.skifte.com/no/om-anders-skifte
