@@ -22,6 +22,8 @@
       <xsl:variable name="url" as="xs:string?" select="/result/context/querystring/@url"/>
       <xsl:variable name="exception-message" as="xs:string?" select="$stk:querystring-parameter[@name = 'exception_message']"/>
       <xsl:if test="normalize-space($error)">
+         <div class="row-fluid">
+            <div class="span12">
          <div class="error">
             <h2>
                <xsl:value-of select="portal:localize(concat('stk.error.', $error, '-heading'))"/>
@@ -54,6 +56,9 @@
                </a>
             </p>
          </xsl:if>
+         </div>
+         </div>
+         
       </xsl:if>      
    </xsl:template>
 

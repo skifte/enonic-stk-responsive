@@ -38,29 +38,18 @@
             <xsl:if test="$stk:device-class = 'not-set'">
                 <li>Device resolver not set</li>
             </xsl:if>
-            <!--<xsl:if test="not($stk:config)">
-                <li>Theme config file not set / found</li>
-            </xsl:if>-->
             <xsl:if test="not($stk:config-device-class)">
                 <li>Config device class not defined</li>
             </xsl:if>
         </xsl:variable>
         
         <xsl:if test="$check-config-result/node()">
-            <html>
                 <body>
-                    <h1>Configuration error</h1>
-                    
+                    <h1>Configuration error</h1>                    
                     <ul>
                         <xsl:copy-of select="$check-config-result"/>
                     </ul>
                 </body>                
-            </html>
-            
         </xsl:if>
-        
-        
     </xsl:function>
-    
-    
 </xsl:stylesheet>

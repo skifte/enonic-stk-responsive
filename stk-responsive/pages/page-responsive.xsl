@@ -8,8 +8,7 @@
     <xsl:import href="/stk-responsive/libraries/utilities/stk-variables.xsl"/>
     <xsl:import href="/stk-responsive/libraries/utilities/region.xsl"/>
     <xsl:import href="/stk-responsive/libraries/utilities/head.xsl"/>
-    <xsl:import href="/stk-responsive/libraries/utilities/accessibility.xsl"/>    
-    <xsl:import href="/stk-responsive/libraries/utilities/menu.xsl"/>
+    <xsl:import href="/stk-responsive/libraries/utilities/error.xsl"/>
     <xsl:import href="/stk-responsive/libraries/utilities/google.xsl"/>    
     <xsl:import href="/stk-responsive/libraries/utilities/system.xsl"/>
     <xsl:import href="/stk-responsive/libraries/utilities/menu.xsl"/>
@@ -55,7 +54,6 @@
                     <xsl:when test="$config-status/node()">
                         <xsl:copy-of select="$config-status"/>
                     </xsl:when>
-                    
                     <xsl:otherwise>
                         <xsl:call-template name="body"/>
                     </xsl:otherwise>
@@ -100,11 +98,18 @@
                 
                 <div class="container">
                     <!-- Renders all regions defined in config -->
-                    <xsl:call-template name="region.renderall"/>
+                    <xsl:choose>
+                        <xsl:when test="$stk:querystring-parameter[@name = 'http_status_code']">
+                            <xsl:call-template name="stk:error.create-message"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="region.renderall"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </div>
                 <footer class="footer">
                     <div class="container">
-                        <p>Responsive demo created by <a href="https://github.com/skifte" rel="external">Anders Skifte</a>. Based on the <a href="http://www.enonic.com/en/docs/stk" rel="external">Enonic STK</a>.</p>
+                        <p>Demo showing off the <a href="https://github.com/skifte/enonic-stk-responsive/">Responsive Templating Kit</a>. Created by <a href="https://twitter.com/skifte" rel="external">Anders Skifte</a>. Based on the <a href="http://www.enonic.com/en/docs/stk" rel="external">Enonic STK</a>.</p>
                     </div>
                 </footer>
                 <xsl:if test="$scripts-region != ''">
