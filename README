@@ -24,7 +24,7 @@ Other
 - Reorganzed folders
 - Removed scripts and styling. Included Bootstrap CSS via CDN.
 - Added the tablet device class (to libraries/resolvers/device-classification.xsl)
-- Device classification is mainly used for delivering optimised images
+- Device classification is mainly used for delivering optimized images
 
 
 
