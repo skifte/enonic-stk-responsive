@@ -21,7 +21,7 @@
     <xsl:variable name="stk:region-width" as="xs:integer" select="if (/result/context/querystring/parameter[@name = '_config-region-width']) then /result/context/querystring/parameter[@name = '_config-region-width'] else 300"/>
        
     <!-- ########## Configuration variables ########## -->  
-    <xsl:variable name="stk:config" as="element()?" select="if (doc-available(concat(/result/context/site/path-to-home-resources, 'config-responsive.xml'))) then document(concat(/result/context/site/path-to-home-resources, 'config-responsive.xml'))/config else null"/>
+    <xsl:variable name="stk:config" as="element()?" select="if (doc-available(concat(/result/context/site/path-to-home-resources, '/config-responsive.xml'))) then document(concat(/result/context/site/path-to-home-resources, '/config-responsive.xml'))/config else null"/>
     <xsl:variable name="stk:config-parameter" as="element()*" select="$stk:config/parameters/parameter"/>    
     <xsl:variable name="stk:config-device-class" as="element()?" select="if ($stk:config/device-classes/device-class[tokenize(@name, ',')[. = $stk:device-class]]) then $stk:config/device-classes/device-class[tokenize(@name, ',')[. = $stk:device-class]] else $stk:config/device-classes/device-class[1]"/>
     
