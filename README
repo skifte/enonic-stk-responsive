@@ -1,11 +1,12 @@
-A responsive and simplified version of The Enonic STK - Standard Templating Kit (http://www.enonic.com/en/docs/stk)
+A responsive and simplified version of The Enonic STK - Standard Templating Kit (http://www.enonic.com/en/docs/stk). 
+Works with Enonic CMS versions 4.4.x - 4.7.1 (released 10 jan 2013).
 
 Responsive Templating Kit Demo available at http://responsive.skifte.com
 
-Works with Enonic CMS versions 4.4.x - 4.7.1 (released 10 jan 2013).
+-----
 
+How is the Responsive STK different from the original Enonic STK?
 
-Main differences
 
 Config-responsive.xml
 - Grid system based on Bootstrap
